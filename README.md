@@ -4,7 +4,7 @@ In this repository there is the experiment with an open-source LLM running local
 
 
 
-### The Setup
+## The Setup
 
 |Model|Qwen3 8B|
 |-|-|
