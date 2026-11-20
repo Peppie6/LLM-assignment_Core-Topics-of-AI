@@ -1,10 +1,10 @@
-###### Chain-of-Thought prompting for an SARCASM-aware support chatbot
+# Chain-of-Thought prompting for an sarcasm-aware support chatbot
 
 In this repository there is the experiment with an open-source LLM running locally which acts as a chatbot for customer support especially for delayed deliveries. The so called customers in this setting express frustration either directly or through sarcasm. So, the experiment tests whether Chain-Of-Thought (COT) prompting helps the model to recognise a customer's emotion and true intent, and respond appropriately.
 
 
 
-###### The Setup
+### The Setup
 
 |Model|Qwen3 8B|
 |-|-|
@@ -16,7 +16,7 @@ The model's built-in thinking mode is switched off so that the only reasoning it
 
 
 
-###### Conditions
+## Conditions
 
 The same (made-up) customer messages are run by three different conditions. All three share the same description of the company and of what the chatbot can and cannot do.
 
@@ -41,7 +41,7 @@ Note: The worked example in cot\_v2 is not one of the test messages.
 
 
 
-###### Test cases
+## Test cases
 
 There are 11 test messages, defined in the file cot\_experiment.py:
 
@@ -50,9 +50,9 @@ There are 11 test messages, defined in the file cot\_experiment.py:
 * Control: 1 sincere positive message, to check for over-detection of sarcasm
 * Stress tests: an ambiguous message, a demand outside the chatbot's authority, a request for information it does not have, a prompt injection, and a three-turn conversation with escalating anger
 
-###### 
+ 
 
-###### How to run
+## How to run
 
 1. Install [Ollama](https://ollama.com) and download the model:
    ollama pull qwen3:8b
@@ -67,25 +67,25 @@ After some minutes the test ends and it writes two files to a results folder: a 
 
 
 
-###### Main observations
+## Main observations
 
 * The baseline takes sarcasm with positive wording literally and thanks the customer for the "kind words". Both COT prompts respond to the complaint instead.
-* The baseline claims things that conflict with its instructions, such as "your package is in transit". The COT prompts do not go past their stated limits.
+* The baseline claims things that conflict with its instructions, such as "your package is in transit". The COT prompts mostly stay within their stated limits.
 * cot\_v2 asks a clarifying question for the ambiguous message and no longer labels a direct complaint as sarcasm.
 * cot\_v2 misses sarcasm that cot detected, and it gives in to the prompt injection ("I can approve your refund"), which the baseline and cot both refuse.
-* The reasoning steps do not always constrain each other or the reply. The model can describe the customer as disappointed while labelling the message as not sarcastic. (The reasoning steps are not always consistent with each other. For one sarcastic message, the model correctly states that the customer is disappointed about a late parcel, but in the same output it labels the situation as "unclear" and the message as not sarcastic)
+* The reasoning steps are not always consistent with each other. For one sarcastic message, the model correctly states that the customer is disappointed about a late parcel, but in the same output it labels the situation as "unclear" and the message as not sarcastic.
 
 
 
-###### Limitations
+## Limitations
 
 * The test set is small (only 11 cases) and each condition was run once, so the results are merely observations.
 * The test messages are hand-written and English only.
-* The chatbot has no access to any order data (ofcourse) and cannot literally hand over to a human agent; the handover is only described in its replies (as that's what should happen for a real company).
+* The chatbot has no access to any order data (of course) and cannot literally hand over to a human agent; the handover is only described in its replies (as that's what should happen for a real company).
 
 
 
-###### Files
+## Files
 
 |File|Content|
 |-|-|
